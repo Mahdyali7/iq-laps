@@ -1,0 +1,922 @@
+/* PCPartPicker Style Custom PC Builder */
+.custom-pc-page {
+  padding: 40px 0 80px;
+  flex: 1;
+}
+
+/* Tabs Navigation */
+.pcpp-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 10px;
+  overflow-x: auto;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  white-space: nowrap;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.tab-btn:hover {
+  background: var(--card-bg);
+  color: var(--text-primary);
+}
+
+.tab-btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* Grid Layout */
+.pc-builder-grid {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 30px;
+}
+
+.component-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.build-summary-column {
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+  align-self: flex-start;
+}
+
+/* Compatibility Status */
+.compatibility-status {
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.compatibility-status h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: var(--text-primary);
+  font-size: 1.25rem;
+}
+
+.compatible {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--success);
+  font-weight: 500;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: rgba(34, 197, 94, 0.1);
+  border-radius: 6px;
+  border-left: 3px solid var(--success);
+}
+
+.incompatible {
+  color: var(--warning);
+  margin-bottom: 15px;
+  padding: 10px;
+  background: rgba(245, 158, 11, 0.1);
+  border-radius: 6px;
+  border-left: 3px solid var(--warning);
+}
+
+.status-icon {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.issues-list {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.issue {
+  font-size: 13px;
+  color: var(--error);
+  margin-bottom: 5px;
+  padding-left: 10px;
+  border-left: 2px solid rgba(239, 68, 68, 0.3);
+}
+
+.estimated-wattage {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: var(--background);
+  border-radius: 6px;
+  font-size: 14px;
+  margin-top: 15px;
+  border: 1px solid var(--border);
+}
+
+.wattage-status.good {
+  color: var(--success);
+  font-weight: 500;
+}
+
+.wattage-status.warning {
+  color: var(--error);
+  font-weight: 500;
+}
+
+/* Component Categories */
+.component-category {
+  background: var(--card-bg);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+}
+
+.category-header h3 {
+  margin: 0;
+  font-size: 16px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.toggle-icon {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--text-secondary);
+  transition: transform 0.3s;
+}
+
+.category-header:hover .toggle-icon {
+  color: var(--primary);
+}
+
+/* Selected Component */
+.selected-component {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(14, 165, 233, 0.05);
+}
+
+.selected-part-info {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex: 1;
+}
+
+.selected-part-info img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+.selected-part-info strong {
+  display: block;
+  font-size: 14px;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.part-specs {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.part-price {
+  font-weight: bold;
+  color: var(--primary);
+  font-size: 14px;
+}
+
+.btn-remove {
+  padding: 6px 12px;
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--error);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-remove:hover {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+/* No Selection */
+.no-selection {
+  padding: 20px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.no-selection:hover {
+  background: var(--background);
+  color: var(--primary);
+}
+
+/* Component List Details */
+.component-list-details {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 20px;
+  background: var(--background);
+}
+
+.component-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.component-card {
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--card-bg);
+  position: relative;
+}
+
+.component-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+}
+
+.component-card.selected {
+  border-color: var(--primary);
+  background: rgba(14, 165, 233, 0.1);
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2);
+}
+
+.component-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+}
+
+.component-info {
+  padding: 0 4px;
+}
+
+.component-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.component-specs {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.component-price {
+  font-weight: bold;
+  color: var(--primary);
+  font-size: 14px;
+}
+
+.recommended-badge {
+  display: inline-block;
+  background: var(--success);
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+.compatible-badge {
+  display: inline-block;
+  background: var(--primary);
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+/* Build Summary */
+.build-summary {
+  position: sticky;
+  top: 100px;
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 25px;
+  border: 1px solid var(--border);
+}
+
+.build-summary h2 {
+  margin: 0 0 25px 0;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 15px;
+}
+
+.selected-parts-list {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.selected-part-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.selected-part-item:last-child {
+  border-bottom: none;
+}
+
+.part-category {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  width: 100px;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.part-details {
+  flex: 1;
+  padding: 0 15px;
+}
+
+.part-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.part-specs-small {
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+.part-price {
+  font-weight: bold;
+  color: var(--primary);
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.empty-build {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--background);
+  border-radius: 8px;
+  margin-bottom: 30px;
+  border: 2px dashed var(--border);
+}
+
+.empty-build p {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.empty-build .hint {
+  font-size: 13px;
+  margin-top: 10px;
+  color: var(--text-secondary);
+}
+
+/* Price Summary */
+.price-summary {
+  border-top: 2px solid var(--border);
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.price-row.total {
+  font-weight: bold;
+  font-size: 18px;
+  color: var(--text-primary);
+  border-top: 2px solid var(--border);
+  margin-top: 10px;
+  padding-top: 15px;
+}
+
+.price-row.iqd {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* Build Actions */
+.build-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 25px 0;
+}
+
+.build-btn {
+  padding: 14px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.build-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Build Features */
+.build-features {
+  background: var(--background);
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 25px;
+  border: 1px solid var(--border);
+}
+
+.build-features h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.build-features ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.build-features li {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  padding: 4px 0;
+}
+
+.build-features li:before {
+  content: '✓';
+  color: var(--success);
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+/* Bottleneck Status */
+.bottleneck-status {
+  padding: 10px;
+  border-radius: 6px;
+  margin: 10px 0;
+  font-size: 13px;
+}
+
+.bottleneck-status.optimal {
+  background: rgba(34, 197, 94, 0.1);
+  color: #166534;
+  border-left: 3px solid #22c55e;
+}
+
+.bottleneck-status.good {
+  background: rgba(59, 130, 246, 0.1);
+  color: #1e40af;
+  border-left: 3px solid #3b82f6;
+}
+
+.bottleneck-status.warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: #92400e;
+  border-left: 3px solid #f59e0b;
+}
+
+.bottleneck-status.poor {
+  background: rgba(239, 68, 68, 0.1);
+  color: #991b1b;
+  border-left: 3px solid #ef4444;
+}
+
+/* Bottleneck alerts */
+.bottleneck-alert {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid;
+}
+
+.bottleneck-alert.optimal {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: #22c55e;
+  color: #166534;
+}
+
+.bottleneck-alert.good {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: #3b82f6;
+  color: #1e40af;
+}
+
+.bottleneck-alert.warning {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: #f59e0b;
+  color: #92400e;
+}
+
+.bottleneck-alert.poor {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: #ef4444;
+  color: #991b1b;
+}
+
+/* Filter badge */
+.filter-badge {
+  font-size: 12px;
+  background: var(--primary);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-left: 10px;
+  font-weight: 500;
+}
+
+/* Recommended GPUs */
+.recommended-gpus {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.recommended-gpu {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.recommended-gpu:hover {
+  background: rgba(59, 130, 246, 0.2);
+  transform: translateY(-2px);
+}
+
+.recommended-gpu strong {
+  display: block;
+  color: #1e40af;
+}
+
+.recommended-gpu span {
+  float: right;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.recommended-gpu small {
+  display: block;
+  color: var(--text-secondary);
+  margin-top: 5px;
+  font-size: 11px;
+}
+
+/* Build recommendation section */
+.build-recommendation {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 20px 0;
+}
+
+.build-recommendation h3 {
+  margin-top: 0;
+  color: var(--primary);
+  font-size: 15px;
+}
+
+.hint {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 10px;
+}
+
+/* Scrollbar Styling */
+.component-list-details::-webkit-scrollbar,
+.selected-parts-list::-webkit-scrollbar,
+.build-summary::-webkit-scrollbar {
+  width: 6px;
+}
+
+.component-list-details::-webkit-scrollbar-track,
+.selected-parts-list::-webkit-scrollbar-track,
+.build-summary::-webkit-scrollbar-track {
+  background: var(--background);
+  border-radius: 10px;
+}
+
+.component-list-details::-webkit-scrollbar-thumb,
+.selected-parts-list::-webkit-scrollbar-thumb,
+.build-summary::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+
+.component-list-details::-webkit-scrollbar-thumb:hover,
+.selected-parts-list::-webkit-scrollbar-thumb:hover,
+.build-summary::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Custom PC Part Component */
+.custom-pc-part {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--card-bg);
+}
+
+.custom-pc-part:hover {
+  border-color: var(--primary);
+  background: var(--background);
+}
+
+.custom-pc-part.selected {
+  border-color: var(--primary);
+  background: rgba(14, 165, 233, 0.1);
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2);
+}
+
+.custom-pc-part.recommended {
+  border-left: 3px solid var(--success);
+}
+
+.custom-pc-part.compatible {
+  border-left: 3px solid var(--primary);
+}
+
+.part-image {
+  flex-shrink: 0;
+  margin-right: 15px;
+}
+
+.part-image img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+.part-info {
+  flex: 1;
+}
+
+.part-info h4 {
+  margin: 0 0 5px 0;
+  font-size: 14px;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.part-specs {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.part-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.part-brand {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.part-price {
+  font-weight: bold;
+  color: var(--primary);
+  font-size: 14px;
+}
+
+.recommended-badge, .compatible-badge {
+  display: inline-block;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+.recommended-badge {
+  background: var(--success);
+  color: white;
+}
+
+.compatible-badge {
+  background: var(--primary);
+  color: white;
+}
+
+.part-action {
+  flex-shrink: 0;
+  margin-left: 15px;
+}
+
+.select-btn {
+  padding: 8px 16px;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.select-btn:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.select-btn.selected {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .pc-builder-grid {
+    grid-template-columns: 1fr 300px;
+  }
+  
+  .component-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 992px) {
+  .pc-builder-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .build-summary-column {
+    position: static;
+    order: -1;
+  }
+  
+  .build-summary {
+    position: static;
+    max-height: none;
+  }
+  
+  .component-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .pcpp-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .tab-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+  
+  .component-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .selected-part-item {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .part-category {
+    width: auto;
+  }
+  
+  .part-details {
+    padding: 0;
+  }
+  
+  .build-actions {
+    flex-direction: column;
+  }
+  
+  .custom-pc-part {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .part-image {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  
+  .part-meta {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+@media (max-width: 576px) {
+  .custom-pc-page {
+    padding: 20px 0 60px;
+  }
+  
+  .pcpp-tabs {
+    gap: 5px;
+  }
+  
+  .tab-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .component-category {
+    padding: 15px;
+  }
+  
+  .build-summary {
+    padding: 20px;
+  }
+}
